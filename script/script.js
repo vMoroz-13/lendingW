@@ -150,7 +150,7 @@ window.addEventListener('DOMContentLoaded', () => {
         //     li = document.createElement('li');
         // li.classList.add('dot');
         for (let i = 0; i < slide.length; i++) {
-            portfolioDots.insertAdjacentHTML('afterbegin', `<li class="dot dot-active"></li>`);
+            portfolioDots.insertAdjacentHTML('afterbegin', `<li class="dot"></li>`);
         }
         const dot = document.querySelectorAll('.dot');
 
