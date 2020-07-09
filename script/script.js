@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         setInterval(appDateClock, 1000);
     }
-    countTimer('07, july, 2020');
+    countTimer('10, july, 2020');
 
     //Menu
     const toggleMenu = () => {
@@ -147,13 +147,11 @@ window.addEventListener('DOMContentLoaded', () => {
         const slide = document.querySelectorAll('.portfolio-item'),
             slider = document.querySelector('.portfolio-content'),
             portfolioDots = document.querySelector('.portfolio-dots');
-        //     li = document.createElement('li');
-        // li.classList.add('dot');
-        for (let i = 0; i < slide.length; i++) {
+        slide.forEach(() => {
             portfolioDots.insertAdjacentHTML('afterbegin', `<li class="dot"></li>`);
-        }
+        });
         const dot = document.querySelectorAll('.dot');
-
+        dot[0].classList.add('dot-active');
         let currentSlide = 0,
             interval;
         const prevSlide = (elem, index, strClass) => {
