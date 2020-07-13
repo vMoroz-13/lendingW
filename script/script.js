@@ -221,9 +221,30 @@ window.addEventListener('DOMContentLoaded', () => {
         startSlide(1500);
     };
     slider();
+//Замена фото
+    const showPhoto = () => {
+        const commandPhoto = document.querySelectorAll('.command__photo');
 
+        const chengePhoto = e => {
+            [e.target.src, e.target.dataset.img] = [e.target.dataset.img, e.target.src];
+        };
 
+        commandPhoto.forEach(event => {
+            event.addEventListener('mouseover', chengePhoto);
+            event.addEventListener('mouseout', chengePhoto);
+        });
 
+    };
+    showPhoto();
+//Запрет на ввод букв
+    document.oninput = () => {
+        const calcSquare = document.querySelector('.calc-square'),
+            calcCount = document.querySelector('.calc-count'),
+            calcDay = document.querySelector('.calc-day');
+        calcSquare.value = calcSquare.value.replace(/[^\+\d]/g, '');
+        calcCount.value = calcCount.value.replace(/[^\+\d]/g, '');
+        calcDay.value = calcDay.value.replace(/[^\+\d]/g, '');
+    };
 
 });
 
