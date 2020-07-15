@@ -292,14 +292,132 @@ window.addEventListener('DOMContentLoaded', () => {
     const sendform = () => {
         const errorMessage = 'Что то пошло не так....',
             loadMesage = 'Идет загрузка... ',
-            successMessage = 'Спасибо мы скоро с Вами свяжемся';
-
-        const form = document.getElementById('form1');
-        const statusMassege = document.createElement('div');
-        statusMassege.textContent = 'Сдесь будет сообщение';
+            successMessage = 'Спасибо мы скоро с Вами свяжемся',
+            statusMassege = document.createElement('div');
         statusMassege.style.cssText = 'font-size: 2rem;';
-        form.appendChild(statusMassege);
+        //Переменные первой формы-->
+        const form = document.getElementById('form1'),
+            formName = document.getElementById('form1-name'),
+            formEmail = document.getElementById('form1-email'),
+            form1Phone = document.getElementById('form1-phone');
+        //Переменные второй формы-->
+        const  form2 = document.getElementById('form2'),
+            formName2 = document.getElementById('form2-name'),
+            formEmail2 = document.getElementById('form2-email'),
+            form1Phone2 = document.getElementById('form2-phone'),
+            formMessage2 = document.getElementById('form2-message');
+        //Переменные третьей формы-->
+        const form3 = document.getElementById('form3'),
+            formName3 = document.getElementById('form3-name'),
+            formEmail3 = document.getElementById('form3-email'),
+            formPhone3 = document.getElementById('form3-phone');
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            formName.value = '';
+            formEmail.value = '';
+            form1Phone.value = '';
+            form.appendChild(statusMassege);
+            statusMassege.textContent = loadMesage;
+            const formData = new FormData(form);
+            const body = {};
+            for (const val of formData.entries()) {
+                body[val[0]] = val[1];
+            }
+
+            postData(body, () => {
+                statusMassege.textContent = successMessage;
+            }, error => {
+                statusMassege.textContent = errorMessage;
+                console.error(error);
+            });
+        });
+
+        form2.addEventListener('submit', event => {
+            event.preventDefault();
+            formName2.value = '';
+            formEmail2.value = '';
+            form1Phone2.value = '';
+            formMessage2.value = '';
+            form2.appendChild(statusMassege);
+            statusMassege.textContent = loadMesage;
+            const formData = new FormData(form2);
+            const body = {};
+            for (const val of formData.entries()) {
+                body[val[0]] = val[1];
+            }
+
+            postData(body, () => {
+                statusMassege.textContent = successMessage;
+            }, error => {
+                statusMassege.textContent = errorMessage;
+                console.error(error);
+            });
+        });
+
+        form3.addEventListener('submit', event => {
+            event.preventDefault();
+            formName3.value = '';
+            formEmail3.value = '';
+            formPhone3.value = '';
+            form3.appendChild(statusMassege);
+            statusMassege.textContent = loadMesage;
+            const formData = new FormData(form3);
+            const body = {};
+            for (const val of formData.entries()) {
+                body[val[0]] = val[1];
+            }
+
+            postData(body, () => {
+                statusMassege.textContent = successMessage;
+            }, error => {
+                statusMassege.textContent = errorMessage;
+                console.error(error);
+            });
+        });
+
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener('readystatechange', () => {
+                if (request.readyState !== 4) {
+                    return;
+                }
+                if (request.status === 200) {
+                    outputData();
+                } else {
+                    errorData(request.status);
+                }
+            });
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');//multipart/form-data
+            request.send(JSON.stringify(body));
+        };
     };
     sendform();
 
+    //Валидация телефона
+    maskPhone('.form-phone');
+    //Запретить ввод любых символов
+    //в поле "Ваше имя" и "Ваше сообщение", кроме Кириллицы и пробелов!
+
+    const checkForm = () => {
+        const form = document.getElementsByTagName('form');
+        console.log(form);
+        const valid = () => {
+
+        };
+        form.forEach((elem)=>{
+            elem.addEventListener('submit', valid);
+            const elementsForm = [];
+            for (const elem of form.elements) {
+                if (elem.tagNams.toLowerCase() !== 'button' && elem.type !== 'button') {
+                    elementsForm.push(elem); 
+                }
+            }
+            console.log(elementsForm);
+        })
+        
+        
+    };
+    checkForm();
 });
