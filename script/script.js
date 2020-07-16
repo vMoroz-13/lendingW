@@ -400,24 +400,20 @@ window.addEventListener('DOMContentLoaded', () => {
     //Запретить ввод любых символов
     //в поле "Ваше имя" и "Ваше сообщение", кроме Кириллицы и пробелов!
 
-    const checkForm = () => {
-        const form = document.getElementsByTagName('form');
-        console.log(form);
-        const valid = () => {
+    const checkForm = event => {
+        const pattern = /'[а-яё]', 'gi'/;
+        const form1 = document.getElementById('form2');
+        const elem = form1.elements.user_message;
 
-        };
-        form.forEach((elem)=>{
-            elem.addEventListener('submit', valid);
-            const elementsForm = [];
-            for (const elem of form.elements) {
-                if (elem.tagNams.toLowerCase() !== 'button' && elem.type !== 'button') {
-                    elementsForm.push(elem); 
-                }
-            }
-            console.log(elementsForm);
-        })
-        
-        
+        if (!pattern.test(elem.value)) {
+            elem.style.border = 'solid red';
+            event.preventDefault();
+        } else {
+            elem.style.border = '';
+        }
+        console.log(elem.value);
+
+
     };
     checkForm();
 });
