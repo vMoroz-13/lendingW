@@ -395,25 +395,41 @@ window.addEventListener('DOMContentLoaded', () => {
     };
     sendform();
 
-    //Валидация телефона
-    maskPhone('.form-phone');
+    //Маска телефона
+    // maskPhone('.form-phone');
     //Запретить ввод любых символов
     //в поле "Ваше имя" и "Ваше сообщение", кроме Кириллицы и пробелов!
 
-    const checkForm = event => {
-        const pattern = /'[а-яё]', 'gi'/;
-        const form1 = document.getElementById('form2');
-        const elem = form1.elements.user_message;
+    function checkNameForm() {
+        const form2Message = document.getElementById('form2-message');
+        const form2Name = document.getElementById('form2-name');
+        const form3Name = document.getElementById('form3-name');
+        const form1Name = document.getElementById('form1-name');
+        const showLog = function() {
+            this.value = this.value.replace(/[0-9a-z ]/gi, '');
+        };
+        form2Message.addEventListener('input', showLog);
+        form2Name.addEventListener('input', showLog);
+        form3Name.addEventListener('input', showLog);
+        form1Name.addEventListener('input', showLog);
+    }
+    checkNameForm();
+    function checkPhonForm() {
+        const form3Phone = document.getElementById('form3-phone');
+        const form2Phone = document.getElementById('form2-phone');
+        const form1Phone = document.getElementById('form1-phone');
 
-        if (!pattern.test(elem.value)) {
-            elem.style.border = 'solid red';
-            event.preventDefault();
-        } else {
-            elem.style.border = '';
-        }
-        console.log(elem.value);
+        const showPhone = function() {
+            this.value = this.value.replace(/[^+0-9]/g, '');
+        };
+        form3Phone.addEventListener('input', showPhone);
+        form1Phone.addEventListener('input', showPhone);
+        form2Phone.addEventListener('input', showPhone);
+    }
+    checkPhonForm();
 
 
-    };
-    checkForm();
 });
+
+
+
